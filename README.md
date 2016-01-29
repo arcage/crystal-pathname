@@ -35,9 +35,7 @@ Pathname.new("foo/bar")        ==  Pathname.new("foo/bar") #=> true
 Pathname.new("foo/../foo/bar") ==  Pathname.new("foo/bar") #=> false
 Pathname.new("foo/../foo/bar") === Pathname.new("foo/bar") #=> true
 
-Pathname.new("/foo/bar").relative_path_from("/foo/buz")
-#=> #<Pathname:../bar>
-
+Pathname.new("/foo/bar").relative_path_from("/foo/buz") #=> #<Pathname:../bar>
 ```
 
 ## Available Methods
@@ -45,10 +43,10 @@ Pathname.new("/foo/bar").relative_path_from("/foo/buz")
 `.cwd`, `.glob`, `new`
 
 ### Instance methods
-`#+`, `#/`, `#<=>`, `#==`, `#===`, `#absolute?`, `#ascend`, `#atime`, `#basename`, `#blockdev?`, `#chardev?`, `#children`, `#cleanpath`, `#ctime`, `#delete`, `#descend`, `#directory?`, `#dirname`, `#each_child`(with block), `#each_entry`, `#each_filename`, `#each_line`(with block), `#entries`, `#executable?`, `#exists`, `#expand_path`, `#extname`, `#file?`, `#join`, `#lstat`, `#make_link`, `#make_symlink`, `#mkdir`, `#mkpath`, `#open`, `#opendir`, `#parent`, `#readable?`, `#relative?`, `#relative_path_from`, `#rename`, `#rmdir`, `#root?`, `#setgid?`, `#setuid`, `#size`, `#size?`, `#socket?`, `#split`, `#stat`, `#sticky?`, `#sub`, `#sub_ext`, `#symlink`, `#utime`, `#writable?`
+`#+`, `#/`, `#<=>`, `#==`, `#===`, `#absolute?`, `#ascend`, `#atime`, `#basename`, `#blockdev?`, `#chardev?`, `#children`, `#cleanpath`, `#ctime`, `#delete`, `#descend`, `#directory?`, `#dirname`, `#each_child`(with block), `#each_entry`, `#each_filename`, `#each_line`(with block), `#entries`, `#executable?`, `#exists?`, `#expand_path`, `#extname`, `#file?`, `#join`, `#lstat`, `#make_link`, `#make_symlink`, `#mkdir`, `#mkpath`, `#open`, `#opendir`, `#parent`, `#readable?`, `#relative?`, `#relative_path_from`, `#rename`, `#rmdir`, `#root?`, `#setgid?`, `#setuid?`, `#size`, `#size?`, `#socket?`, `#split`, `#stat`, `#sticky?`, `#sub`, `#sub_ext`, `#symlink?`, `#utime`, `#writable?`
 
 ## Core library extension
-When calling the following methods, you can use Pathname object as filename(or dirname or pathname) parameter.
+When calling the following methods, you can use Pathname object as filename(or dirname/pathname) parameter.
 
 ### `File` class
 `File.basename`, `File.delete`, `File.directory?`, `File.dirname`, `File.each_line`, `File.exists?`, `File.executable?`, `File.expand_path`, `File.extname`, `File.file?`, `File.link`, `File.lstat`, `File.open`, `File.read`, `File.read_lines`, `File.readable?`, `File.rename`, `File.size`, `File.stat`, `File.symlink`, `File.writable?`, `File.write`

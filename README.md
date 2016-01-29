@@ -14,7 +14,7 @@ Add this to your application's `shard.yml`:
 ```yaml
 dependencies:
   pathname:
-    github: arcage/cerystal-pathname
+    github: arcage/crystal-pathname
 ```
 
 ## Usage

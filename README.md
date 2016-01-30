@@ -3,6 +3,11 @@
 **Crystal** implementation of **Ruby**'s `Pathname` object.
 
 ## Version
+
+- 0.1.1/0.1.2
+
+    Fix an error in `Pathname#+`
+
 - 0.1.0
 
     Implement file path string handling methods and some other methods.

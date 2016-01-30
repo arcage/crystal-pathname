@@ -2,7 +2,7 @@
 struct Pathname
   include Comparable(self)
 
-  VERSION = "0.1.1"
+  VERSION = "0.1.2"
 
   def self.cwd
     self.new(Dir.current)
@@ -43,7 +43,7 @@ struct Pathname
     if other.absolute?
       other
     else
-      Pathname("#{self}#{File::SEPARATOR_STRING}#{other}")
+      Pathname.new("#{self}#{File::SEPARATOR_STRING}#{other}")
     end
   end
 

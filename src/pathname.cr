@@ -43,7 +43,7 @@ struct Pathname
     if other.absolute?
       other
     else
-      other.relative_path_from(self)
+      Pathname("#{self}#{File::SEPARATOR_STRING}#{other}")
     end
   end
 

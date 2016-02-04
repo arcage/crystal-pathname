@@ -2,7 +2,7 @@
 struct Pathname
   include Comparable(self)
 
-  VERSION = "0.1.2"
+  VERSION = "0.1.3"
 
   def self.cwd
     self.new(Dir.current)
@@ -111,8 +111,9 @@ struct Pathname
     paths = [] of Pathname
     Dir.entries(@path).each do |entry|
       next if entry == "." || entry == ".."
-      next if !with_directory && File.directory?("#{@path}#{File::SEPARATOR_STRING}#{entry}")
-      paths << Pathname.new(entry)
+      new_path = self + entry
+      next if !with_directory && new_path.directory?
+      paths << new_path
     end
     paths
   end

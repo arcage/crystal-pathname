@@ -2,15 +2,15 @@
 
 **Crystal** implementation of **Ruby**'s `Pathname` object.
 
-## Version
+### Versions
+#### 0.1.3
+- Conform the return values of `#children` and `#each_child` to **Ruby**.
 
-- 0.1.1/0.1.2
+#### 0.1.1/0.1.2
+- Fix an error in `Pathname#+`
 
-    Fix an error in `Pathname#+`
-
-- 0.1.0
-
-    Implement file path string handling methods and some other methods.
+#### 0.1.0
+- Implement file path string handling methods and some other methods.
 
 ## Installation
 

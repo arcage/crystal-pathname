@@ -4,7 +4,7 @@
 
 ### Versions
 #### 0.1.3
-- Conform the return values of `#children` and `#each_child` to **Ruby**.
+- Conform `#children` and `#each_child` to **Ruby**.
 
 #### 0.1.1/0.1.2
 - Fix an error in `Pathname#+`

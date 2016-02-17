@@ -5,7 +5,7 @@
 ### v0.1.5
 - Rename `#mkpath` to `#mkdir_p`.
 - Add following instance methods.
-    - `#real_path`, `#read`, `#world_readable?`, `#world_writable?`, `#write`
+    - `#real_path`, `#read`, `#truncate`, `#world_readable?`, `#world_writable?`, `#write`
 - Extend `File.real_path`, `File.new` and `Dir.new` for `Pathname`.
 
 ### v0.1.4

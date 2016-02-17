@@ -431,7 +431,11 @@ struct Pathname
     io << @path
   end
 
-  # def truncate
+  def truncate(size = 0)
+    File.open(@path, "r+") do |file|
+      file.truncate(size)
+    end
+  end
 
   def utime
     stat.utime

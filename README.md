@@ -44,7 +44,7 @@ Pathname.new("/foo/bar").relative_path_from("/foo/buz") #=> #<Pathname:../bar>
 `.cwd`, `.glob`, `new`
 
 ### Instance methods
-`#+`, `#/`, `#<=>`, `#==`, `#===`, `#absolute?`, `#ascend`, `#atime`, `#basename`, `#blockdev?`, `#chardev?`, `#children`, `#cleanpath`, `#ctime`, `#delete`, `#descend`, `#directory?`, `#dirname`, `#each_child`(with block), `#each_entry`, `#each_filename`, `#each_line`(with block), `#entries`, `#executable?`, `#exists?`, `#expand_path`, `#extname`, `#file?`, `#join`, `#lstat`, `#make_link`, `#make_symlink?`, `#mkdir`, `#mkdir_p`, `#open`, `#opendir`, `#parent`, `#read`, `#readable?`, `#real_path`, `#relative?`, `#relative_path_from`, `#rename`, `#rmdir`, `#root?`, `#setgid?`, `#setuid?`, `#size`, `#size?`, `#socket?`, `#split`, `#stat`, `#sticky?`, `#sub`, `#sub_ext`, `#symlink`, `#utime`, `#world_readable?`, `#world_writable?`, `#writable?`, `#write`, `#zero?`
+`#+`, `#/`, `#<=>`, `#==`, `#===`, `#absolute?`, `#ascend`, `#atime`, `#basename`, `#blockdev?`, `#chardev?`, `#children`, `#cleanpath`, `#ctime`, `#delete`, `#descend`, `#directory?`, `#dirname`, `#each_child`(with block), `#each_entry`, `#each_filename`, `#each_line`(with block), `#entries`, `#executable?`, `#exists?`, `#expand_path`, `#extname`, `#file?`, `#join`, `#lstat`, `#make_link`, `#make_symlink?`, `#mkdir`, `#mkdir_p`, `#open`, `#opendir`, `#parent`, `#read`, `#readable?`, `#real_path`, `#relative?`, `#relative_path_from`, `#rename`, `#rmdir`, `#root?`, `#setgid?`, `#setuid?`, `#size`, `#size?`, `#socket?`, `#split`, `#stat`, `#sticky?`, `#sub`, `#sub_ext`, `#symlink`, `#truncate`, `#utime`, `#world_readable?`, `#world_writable?`, `#writable?`, `#write`, `#zero?`
 
 ## Core library extension
 When calling the following methods, you can use Pathname object as filename(or dirname/pathname) parameter.
@@ -66,4 +66,4 @@ When calling the following methods, you can use Pathname object as filename(or d
     - `#realpath` -> `#real_path`
 - Following methods are unavailable(at this version).
     - top level method `Pathname()`
-    - instance methods `#binread`, `#binwrite`, `#birthtime`, `#chmod`, `#chown`, `#each_child`(without block), `#each_line`(without block), `#find`, `#fnmatch`, `#fnmatch?`, `#ftype`, `#grpowned?`, `#lchmod`, `#lchown`, `#mountpoint?`, `#pipe?`, `#owned?`, `#readable_real?`, `#readlink`, `#realdirpath`, `#rmtree`, `#sysopen`, `#to_path`, `#truncate`
+    - instance methods `#binread`, `#binwrite`, `#birthtime`, `#chmod`, `#chown`, `#each_child`(without block), `#each_line`(without block), `#find`, `#fnmatch`, `#fnmatch?`, `#ftype`, `#grpowned?`, `#lchmod`, `#lchown`, `#mountpoint?`, `#pipe?`, `#owned?`, `#readable_real?`, `#readlink`, `#realdirpath`, `#rmtree`, `#sysopen`, `#to_path`

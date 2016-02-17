@@ -2,7 +2,7 @@
 struct Pathname
   include Comparable(self)
 
-  VERSION = "0.1.4"
+  VERSION = "0.1.5"
 
   def self.cwd
     self.new(Dir.current)
@@ -276,7 +276,7 @@ struct Pathname
     Dir.mkdir(@path, mode)
   end
 
-  def mkpath(mode = 0o511)
+  def mkdir_p(mode = 0o511)
     Dir.mkdir_p(@path, mode)
   end
 
@@ -312,18 +312,24 @@ struct Pathname
 
   # def pipe?
   # def owned?
-  # def read
 
-  def readable?
+  def read(encoding = nil, invalid = nil) : String
+    File.read(@path, encoding, invalid)
+  end
+
+  def readable? : Bool
     File.readable?(@path)
   end
 
   # def readable_real?
   # def readlink
   # def realdirpath
-  # def realpath
 
-  def relative?
+  def real_path : Pathname
+    Pathname.new(File.real_path(@path))
+  end
+
+  def relative? : Bool
     !absolute?
   end
 
@@ -431,14 +437,21 @@ struct Pathname
     stat.utime
   end
 
-  # def world_readable?
-  # def world_writable?
+  def world_readable?
+    ((stat.mode & LibC::S_IRWXO) & LibC::S_IROTH > 0)
+  end
+
+  def world_writable?
+    ((stat.mode & LibC::S_IRWXO) & LibC::S_IWOTH > 0)
+  end
 
   def writable?
     File.writable?(@path)
   end
 
-  # def write
+  def write(content, perm = DEFAULT_CREATE_MODE, encoding = nil, invalid = nil)
+    File.write(@path, content, perm, encoding, invalid)
+  end
 
   def zero?
     return false unless exists?
@@ -447,42 +460,6 @@ struct Pathname
 end
 
 class File
-
-  def self.stat(path : Pathname)
-    self.stat(path.to_s)
-  end
-
-  def self.lstat(path : Pathname)
-    self.lstat(path.to_s)
-  end
-
-  def self.exists?(path : Pathname)
-    self.exists?(path.to_s)
-  end
-
-  def self.readable?(path : Pathname)
-    self.readable?(path.to_s)
-  end
-
-  def self.writable?(path : Pathname)
-    self.writable?(path.to_s)
-  end
-
-  def self.executable?(path : Pathname)
-    self.executable?(path.to_s)
-  end
-
-  def self.file?(path : Pathname)
-    self.file?(path.to_s)
-  end
-
-  def self.directory?(path : Pathname)
-    self.directory?(path.to_s)
-  end
-
-  def self.dirname(path : Pathname)
-    self.dirname(path.to_s)
-  end
 
   def self.basename(path : Pathname)
     self.basename(path.to_s)
@@ -496,12 +473,38 @@ class File
     self.delete(path.to_s)
   end
 
-  def self.extname(path : Pathname)
-    self.extname(path.to_s)
+  def self.directory?(path : Pathname)
+    self.directory?(path.to_s)
+  end
+
+  def self.dirname(path : Pathname)
+    self.dirname(path.to_s)
+  end
+
+  def self.each_line(path : Pathname)
+    self.each_line(path.to_s) do |line|
+      yield line
+    end
+  end
+
+  def self.executable?(path : Pathname)
+    self.executable?(path.to_s)
+  end
+
+  def self.exists?(path : Pathname)
+    self.exists?(path.to_s)
   end
 
   def self.expand_path(path : Pathname, dir = nil)
     self.expand_path(path.to_s, dir)
+  end
+
+  def self.extname(path : Pathname)
+    self.extname(path.to_s)
+  end
+
+  def self.file?(path : Pathname)
+    self.file?(path.to_s)
   end
 
   def self.link(old_path : Pathname, new_path)
@@ -514,6 +517,56 @@ class File
 
   def self.link(old_path : Pathname, new_path : Pathname)
     self.link(old_path.to_s, new_path.to_s)
+  end
+
+  def self.lstat(path : Pathname)
+    self.lstat(path.to_s)
+  end
+
+  def self.open(path : Pathname, mode = "r", perm = DEFAULT_CREATE_MODE, encoding = nil, invalid = nil)
+    self.open(path.to_s, mode, perm, encoding, invalid)
+  end
+
+  def self.open(path : Pathname, mode = "r", perm = DEFAULT_CREATE_MODE, encoding = nil, invalid = nil)
+    self.open(path.to_s, mode, perm, encoding, invalid) do |fd|
+      yield fd
+    end
+  end
+
+  def self.read(path : Pathname, encoding = nil, invalid = nil)
+    self.read(path.to_s, encoding, invalid)
+  end
+
+  def self.read_lines(path : Pathname, encoding = nil, invalid = nil)
+    self.read_lines(path.to_s, encoding, invalid)
+  end
+
+  def self.readable?(path : Pathname)
+    self.readable?(path.to_s)
+  end
+
+  def self.real_path(path : Pathname)
+    self.real_path(path.to_s)
+  end
+
+  def self.rename(old_path : Pathname, new_path)
+    self.rename(old_path.to_s, new_path)
+  end
+
+  def self.rename(old_path, new_path : Pathname)
+    self.rename(old_path, new_path.to_s)
+  end
+
+  def self.rename(old_path : Pathname, new_path : Pathname)
+    self.rename(old_path.to_s, new_path.to_s)
+  end
+
+  def self.size(path : Pathname)
+    self.size(path.to_s)
+  end
+
+  def self.stat(path : Pathname)
+    self.stat(path.to_s)
   end
 
   def self.symlink(old_path : Pathname, new_path)
@@ -532,63 +585,21 @@ class File
     self.symlink?(path.to_s)
   end
 
-  def self.open(path : Pathname, mode = "r", perm = DEFAULT_CREATE_MODE)
-    self.open(path.to_s, mode, perm)
+  def self.writable?(path : Pathname)
+    self.writable?(path.to_s)
   end
 
-  def self.open(path : Pathname, mode = "r", perm = DEFAULT_CREATE_MODE)
-    self.open(path.to_s, mode, perm) do |fd|
-      yield fd
-    end
+  def self.write(path : Pathname, content, perm = DEFAULT_CREATE_MODE, encoding = nil, invalid = nil)
+    self.write(path.to_s, content, perm, encoding, invalid)
   end
 
-  def self.read(path : Pathname)
-    self.read(path.to_s)
-  end
-
-  def self.each_line(path : Pathname)
-    self.each_line(path.to_s) do |line|
-      yield line
-    end
-  end
-
-  def self.read_lines(path : Pathname)
-    self.read_lines(path.to_s)
-  end
-
-  def self.write(path : Pathname, content, perm = DEFAULT_CREATE_MODE)
-    self.write(path.to_s, content, perm)
-  end
-
-  def self.size(path : Pathname)
-    self.size(path.to_s)
-  end
-
-  def self.rename(old_path : Pathname, new_path)
-    self.rename(old_path.to_s, new_path)
-  end
-
-  def self.rename(old_path, new_path : Pathname)
-    self.rename(old_path, new_path.to_s)
-  end
-
-  def self.rename(old_path : Pathname, new_path : Pathname)
-    self.rename(old_path.to_s, new_path.to_s)
+  def self.new(path : Pathname, mode = "r", perm = DEFAULT_CREATE_MODE, encoding = nil, invalid = nil)
+    self.new(path.to_s, mode, perm, encoding, invalid)
   end
 
 end
 
 class Dir
-
-  def self.open(path : Pathname)
-    self.open(path.to_s)
-  end
-
-  def self.open(path : Pathname)
-    self.open(path.to_s) do |dir|
-      yield dir
-    end
-  end
 
   def self.cd(path : Pathname)
     self.cd(path.to_s)
@@ -600,18 +611,18 @@ class Dir
     end
   end
 
-  def self.foreach(path : Pathname)
-    self.foreach(path.to_s) do |filename|
-      yield filename
-    end
-  end
-
   def self.entries(path : Pathname)
     self.entries(path.to_s)
   end
 
   def self.exists?(path : Pathname)
     self.exists?(path.to_s)
+  end
+
+  def self.foreach(path : Pathname)
+    self.foreach(path.to_s) do |filename|
+      yield filename
+    end
   end
 
   def self.mkdir(path : Pathname, mode = 0o777)
@@ -622,8 +633,24 @@ class Dir
     self.mkdir_p(path.to_s, mode)
   end
 
+  def self.new(path : Pathname)
+    self.new(path.to_s)
+  end
+
+  def self.open(path : Pathname)
+    self.open(path.to_s)
+  end
+
+  def self.open(path : Pathname)
+    self.open(path.to_s) do |dir|
+      yield dir
+    end
+  end
+
   def self.rmdir(path : Pathname)
     self.rmdir(path.to_s)
   end
 
 end
+
+p Pathname.new("README.md").world_readable?.to_s(8)

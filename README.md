@@ -4,7 +4,9 @@
 
 ## Versions
 
-See [CHANGELOG.md](./CHANGELOG.md)
+Latest version is `0.1.5` .
+
+Show [CHANGELOG.md](./CHANGELOG.md) for more details.
 
 ## Installation
 
@@ -42,22 +44,26 @@ Pathname.new("/foo/bar").relative_path_from("/foo/buz") #=> #<Pathname:../bar>
 `.cwd`, `.glob`, `new`
 
 ### Instance methods
-`#+`, `#/`, `#<=>`, `#==`, `#===`, `#absolute?`, `#ascend`, `#atime`, `#basename`, `#blockdev?`, `#chardev?`, `#children`, `#cleanpath`, `#ctime`, `#delete`, `#descend`, `#directory?`, `#dirname`, `#each_child`(with block), `#each_entry`, `#each_filename`, `#each_line`(with block), `#entries`, `#executable?`, `#exists?`, `#expand_path`, `#extname`, `#file?`, `#join`, `#lstat`, `#make_link`, `#make_symlink`, `#mkdir`, `#mkpath`, `#open`, `#opendir`, `#parent`, `#readable?`, `#relative?`, `#relative_path_from`, `#rename`, `#rmdir`, `#root?`, `#setgid?`, `#setuid?`, `#size`, `#size?`, `#socket?`, `#split`, `#stat`, `#sticky?`, `#sub`, `#sub_ext`, `#symlink?`, `#utime`, `#writable?`
+`#+`, `#/`, `#<=>`, `#==`, `#===`, `#absolute?`, `#ascend`, `#atime`, `#basename`, `#blockdev?`, `#chardev?`, `#children`, `#cleanpath`, `#ctime`, `#delete`, `#descend`, `#directory?`, `#dirname`, `#each_child`(with block), `#each_entry`, `#each_filename`, `#each_line`(with block), `#entries`, `#executable?`, `#exists?`, `#expand_path`, `#extname`, `#file?`, `#join`, `#lstat`, `#make_link`, `#make_symlink?`, `#mkdir`, `#mkdir_p`, `#open`, `#opendir`, `#parent`, `#read`, `#readable?`, `#real_path`, `#relative?`, `#relative_path_from`, `#rename`, `#rmdir`, `#root?`, `#setgid?`, `#setuid?`, `#size`, `#size?`, `#socket?`, `#split`, `#stat`, `#sticky?`, `#sub`, `#sub_ext`, `#symlink`, `#utime`, `#world_readable?`, `#world_writable?`, `#writable?`, `#write`, `#zero?`
 
 ## Core library extension
 When calling the following methods, you can use Pathname object as filename(or dirname/pathname) parameter.
 
 ### `File` class
-`File.basename`, `File.delete`, `File.directory?`, `File.dirname`, `File.each_line`, `File.exists?`, `File.executable?`, `File.expand_path`, `File.extname`, `File.file?`, `File.link`, `File.lstat`, `File.open`, `File.read`, `File.read_lines`, `File.readable?`, `File.rename`, `File.size`, `File.stat`, `File.symlink`, `File.writable?`, `File.write`
+`File.basename`, `File.delete`, `File.directory?`, `File.dirname`, `File.each_line`, `File.executable?`, `File.exists?`, `File.expand_path`, `File.extname`, `File.file?`, `File.link`, `File.lstat`, `File.new`, `File.open`, `File.read`, `File.read_lines`, `File.readable?`, `File.real_path`, `File.rename`, `File.size`, `File.stat`, `File.symlink`, `File.writable?`, `File.write`
 
 ### `Dir` class
-`Dir.cd`, `Dir.entries`, `Dir.exists?`, `Dir.foreach`, `Dir.mkdir`, `Dir.mkdir_p`, `Dir.open`, `Dir.rmdir`
+`Dir.cd`, `Dir.entries`, `Dir.exists?`, `Dir.foreach`, `Dir.mkdir`, `Dir.mkdir_p`, `Dir.new`, `Dir.open`, `Dir.rmdir`
 
 ## Differences from **Ruby**'s one.
 - Consecutive `File::SEPARATOR`s (ex: "//") in a path string are always normalized in `#initilize`.
 - `#===(other : Pathname)` returns `true` when `#cleanpath` results of `self` and `other` are same.
-- Class method `.getwd` and `.pwd` are integrated to into `.cwd`, because they doesn't *print* anything.
-- `#exists?` instead of `#exist?`.
+- Class method `.getwd` and `.pwd` are integrated to into `.cwd`.
+- `#world_readable?` and `#world_writable?` return `Bool` value instead of `(Int32|Nil)`.
+- Some method names are changed to conform with Crystal's `File` class.
+    - `#exist?` -> `#exists?`
+    - `#mkpath` -> `#mkdir_p`
+    - `#realpath` -> `#real_path`
 - Following methods are unavailable(at this version).
     - top level method `Pathname()`
-    - instance methods `#binread`, `#binwrite`, `#birthtime`, `#chmod`, `#chown`, `#each_child`(without block), `#each_line`(without block), `#find`, `#fnmatch`, `#fnmatch?`, `#ftype`, `#grpowned?`, `#lchmod`, `#lchown`, `#mountpoint?`, `#pipe?`, `#owned?`, `#read`, `#readable_real?`, `#readlink`, `#realdirpath`, `#realpath`, `#rmtree`, `#sysopen`, `#to_path`, `#truncate`, `#world_readable?`, `#world_writable?`, `#write`
+    - instance methods `#binread`, `#binwrite`, `#birthtime`, `#chmod`, `#chown`, `#each_child`(without block), `#each_line`(without block), `#find`, `#fnmatch`, `#fnmatch?`, `#ftype`, `#grpowned?`, `#lchmod`, `#lchown`, `#mountpoint?`, `#pipe?`, `#owned?`, `#readable_real?`, `#readlink`, `#realdirpath`, `#rmtree`, `#sysopen`, `#to_path`, `#truncate`

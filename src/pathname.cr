@@ -2,7 +2,7 @@
 struct Pathname
   include Comparable(self)
 
-  VERSION = "0.1.3"
+  VERSION = "0.1.4"
 
   def self.cwd
     self.new(Dir.current)
@@ -28,9 +28,9 @@ struct Pathname
     Dir.glob(patterns).map {|path| self.new(path) }
   end
 
+  @path : String
 
   def initialize(path : String)
-    @path : String
     path = path.sub(/#{File::SEPARATOR_STRING}+$/, "") unless path == File::SEPARATOR_STRING
     @path = path
   end

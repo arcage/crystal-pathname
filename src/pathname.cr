@@ -652,5 +652,3 @@ class Dir
   end
 
 end
-
-p Pathname.new("README.md").world_readable?.to_s(8)

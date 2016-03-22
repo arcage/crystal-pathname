@@ -4,7 +4,7 @@
 
 ## Versions
 
-Latest version is `0.1.5` .
+Latest version is `0.1.6` .
 
 Show [CHANGELOG.md](./CHANGELOG.md) for more details.
 

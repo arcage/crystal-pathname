@@ -1,7 +1,6 @@
 require "./spec_helper"
 
 describe Pathname do
-
   context ".cwd" do
     it "returns Pathname object of the current working directory" do
       cwd = Pathname.cwd
@@ -41,5 +40,4 @@ describe Pathname do
       path.relative?.should be_true
     end
   end
-
 end

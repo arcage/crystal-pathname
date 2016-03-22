@@ -1,8 +1,7 @@
-
 struct Pathname
   include Comparable(self)
 
-  VERSION = "0.1.5"
+  VERSION = "0.1.6"
 
   def self.cwd
     self.new(Dir.current)
@@ -15,7 +14,7 @@ struct Pathname
   end
 
   def self.glob(*patterns)
-    Dir.glob(patterns).map {|path| self.new(path) }
+    Dir.glob(patterns).map { |path| self.new(path) }
   end
 
   def self.glob(patterns : Enumerable(String))
@@ -25,7 +24,7 @@ struct Pathname
   end
 
   def self.glob(patterns : Enumerable(String))
-    Dir.glob(patterns).map {|path| self.new(path) }
+    Dir.glob(patterns).map { |path| self.new(path) }
   end
 
   @path : String
@@ -107,7 +106,7 @@ struct Pathname
     File.stat(@path).chardev?
   end
 
-  def children(with_directory = true : Bool) : Array(Pathname)
+  def children(with_directory : Bool = true) : Array(Pathname)
     paths = [] of Pathname
     Dir.entries(@path).each do |entry|
       next if entry == "." || entry == ".."
@@ -121,7 +120,7 @@ struct Pathname
   # def chmod
   # def chown
 
-  def cleanpath(consider_symlink = false : Bool) : Pathname
+  def cleanpath(consider_symlink : Bool = false) : Pathname
     new_filenames = [] of String
     filenames.each do |node|
       case node
@@ -173,7 +172,7 @@ struct Pathname
     Pathname.new(File.dirname(@path))
   end
 
-  def each_child(with_directory = true : Bool)
+  def each_child(with_directory : Bool = true)
     children(with_directory).each do |child|
       yield child
     end
@@ -223,7 +222,7 @@ struct Pathname
     end
   end
 
-  def expand_path(default_dir = Dir.current : String)
+  def expand_path(default_dir : String = Dir.current)
     expand_path(Pathname.new(default_dir))
   end
 
@@ -464,7 +463,6 @@ struct Pathname
 end
 
 class File
-
   def self.basename(path : Pathname)
     self.basename(path.to_s)
   end
@@ -600,11 +598,9 @@ class File
   def self.new(path : Pathname, mode = "r", perm = DEFAULT_CREATE_MODE, encoding = nil, invalid = nil)
     self.new(path.to_s, mode, perm, encoding, invalid)
   end
-
 end
 
 class Dir
-
   def self.cd(path : Pathname)
     self.cd(path.to_s)
   end
@@ -654,5 +650,4 @@ class Dir
   def self.rmdir(path : Pathname)
     self.rmdir(path.to_s)
   end
-
 end
